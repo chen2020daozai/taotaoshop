@@ -1,8 +1,10 @@
 package com.taotao.controller;
 
+import com.taotao.commom.pojo.EUDataGridResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**页面跳转Controller
  * Create by 陈刀仔 at 19:49 on 2020/2/24
@@ -22,4 +24,6 @@ public class PageController {
     public String showPage(@PathVariable String page) {
         return page;
     }
+
+
 }
