@@ -21,6 +21,7 @@
         </javaTypeResolver>
 
         <!-- targetProject:生成PO类的位置 -->
+        <!--POJO类的作用是方便程序员使用数据库中的数据表-->
         <javaModelGenerator targetPackage="com.taotao.pojo"
                             targetProject=".\src">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
