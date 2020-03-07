@@ -16,7 +16,8 @@ import java.util.Properties;
  */
 public class FtpUtil {
     private static ChannelSftp sftp = null;
-//属性
+
+    //属性
 //    //账号
 //    private static String user = "ftpuser";
 //    //主机ip
@@ -30,10 +31,9 @@ public class FtpUtil {
 //    //下载目录
 //    private static String saveFile = "D:\\VMware\\XuNiJi\\imgs";
 //, InputStream input
-    public static boolean uploadFile(String host, int port, String username, String password, String localFile,
-                                     String basePath, String filePath, String fileName) {
+    public static boolean uploadFile(String host, int port, String username, String password, String basePath,
+                                     String filePath, String fileName, FileInputStream inputStream) {
         boolean result = false;
-        File file = null;
         try {
             JSch jsch = new JSch();
 
@@ -53,19 +53,36 @@ public class FtpUtil {
             //开启
             channel.connect();
             sftp = (ChannelSftp) channel;
-//文件上传到服务器的路径
-            String path=basePath + filePath;
-            try {
-                sftp.cd(path);
-
-            } catch (SftpException e) {
-//创建路径
-                sftp.mkdir(path);
-                sftp.cd(path);
-
+            //文件上传到服务器的路径
+            String path = basePath + filePath;
+//            sftp.cd(basePath);
+//            创建多级路径
+            String[] folders = path.split("/");
+            sftp.cd("/");
+            for (String folder : folders) {
+                if (folder.length() > 0) {
+                    try {
+                        sftp.cd(folder);
+                    } catch (SftpException e) {
+                        sftp.mkdir(folder);
+                        sftp.cd(folder);
+                    }
+                }
             }
-            file = new File(localFile);
-            sftp.put(new FileInputStream(file), fileName);
+//            try {
+//                sftp.cd(path);
+//
+//            } catch (SftpException e) {
+//                //创建路径
+//                sftp.mkdir(path);
+//                sftp.cd(path);
+//            }
+//            file = new File(localFile);
+
+            sftp.put(inputStream, fileName);
+            System.out.println("成功");
+            result=true;
+            inputStream.close();
             channel.disconnect();//断开信道
             sshSession.disconnect();//断开ssh连接释放内存资源
         } catch (Exception e) {
@@ -75,3 +92,4 @@ public class FtpUtil {
         return result;
     }
 }
+
