@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-/**商品管理Controller
+/**
+ * 商品管理Controller
  * Create by 陈刀仔 at 12:24 on 2020/2/23
  */
 
@@ -23,24 +24,24 @@ public class ItemController {
 
     @RequestMapping("/item/{itemId}")
     @ResponseBody
-    public TbItem getItemBId(@PathVariable Long itemId){
+    public TbItem getItemBId(@PathVariable Long itemId) {
         TbItem item = itemService.getItemById(itemId);
         return item;
     }
 
-//    item-list.jsp中field后面的是分页查询中的“列”，需要跟TbItem的属性相对应
+    //    item-list.jsp中field后面的是分页查询中的“列”，需要跟TbItem的属性相对应
 //    web运行去本地仓库找jar，找不到需要安装jar
     @RequestMapping("/item/list")//地址
     @ResponseBody
-    public EUDataGridResult getItemList(Integer page,Integer rows){
-        EUDataGridResult result=itemService.getItemList(page,rows);
+    public EUDataGridResult getItemList(Integer page, Integer rows) {
+        EUDataGridResult result = itemService.getItemList(page, rows);
         return result;
     }
 
-    @RequestMapping(value="/item/save" , method= RequestMethod.POST)
+    @RequestMapping(value = "/item/save", method = RequestMethod.POST)
     @ResponseBody
-    public TaotaoResult creatItem(TbItem item){
-        TaotaoResult result=itemService.creatItem(item);
+    public TaotaoResult creatItem(TbItem item, String desc) throws Exception {
+        TaotaoResult result = itemService.creatItem(item, desc);
         return result;
     }
 }
