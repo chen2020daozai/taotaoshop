@@ -71,17 +71,18 @@
 		$("#itemParamAddTable .close").click(function(){
 			$(".panel-tool-close").click();
 		});
-		
+
+		//选择器  选择submit
 		$("#itemParamAddTable .submit").click(function(){
-			var params = [];
-			var groups = $("#itemParamAddTable [name=group]");
+			var params = [];//每个 规格组+组内项  是一个元素
+			var groups = $("#itemParamAddTable [name=group]");//规格组
 			groups.each(function(i,e){
-				var p = $(e).parentsUntil("ul").parent().find("[name=param]");
+				var p = $(e).parentsUntil("ul").parent().find("[name=param]");//项目组里面的项
 				var _ps = [];
 				p.each(function(_i,_e){
 					var _val = $(_e).siblings("input").val();
 					if($.trim(_val).length>0){
-						_ps.push(_val);						
+						_ps.push(_val);	//每个项放到_ps数组中
 					}
 				});
 				var _val = $(e).siblings("input").val();

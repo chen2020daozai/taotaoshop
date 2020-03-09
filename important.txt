@@ -1,0 +1,7 @@
+Dao层就是操作数据库  可以用逆向工程生成的代码
+Service层是主要操作
+Controller层接收前段数据
+
+单表操作可以用逆向生成的代码
+easyUI都是Ajax请求，只有一个html（index.jsp），其他都是<div>
+mapper就是操作数据库的

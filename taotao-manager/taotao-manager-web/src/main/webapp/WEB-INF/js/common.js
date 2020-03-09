@@ -127,7 +127,7 @@ var TT = TAOTAO = {
     			    		animate:true,
     			    		onClick : function(node){
     			    			if($(this).tree("isLeaf",node.target)){
-    			    				// 填写到cid中
+    			    				// 填写到cid中  显示分类
     			    				_ele.parent().find("[name=cid]").val(node.id);
     			    				_ele.next().text(node.text).attr("cid",node.id);
     			    				$(_win).window('close');
