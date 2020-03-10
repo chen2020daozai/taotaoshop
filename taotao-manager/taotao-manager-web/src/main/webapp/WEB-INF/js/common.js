@@ -193,6 +193,7 @@ var TT = TAOTAO = {
     	$.getJSON("/item/param/query/itemcatid/" + node.id,function(data){
 			  if(data.status == 200 && data.data){
 				 $("#"+formId+" .params").show();
+				 // /把字符串转换成json对象
 				 var paramData = JSON.parse(data.data.paramData);
 				 var html = "<ul>";
 				 for(var i in paramData){

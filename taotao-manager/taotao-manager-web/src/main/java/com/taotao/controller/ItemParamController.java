@@ -25,7 +25,7 @@ public class ItemParamController {
     @Autowired
     private ItemParamService itemParamService;
 
-    @RequestMapping("/item/param/list")
+    @RequestMapping("/list")
     @ResponseBody
     public EUDataGridResult getItemParamList(Integer page,Integer rows){
         EUDataGridResult result = itemParamService.getItemParamList(page, rows);

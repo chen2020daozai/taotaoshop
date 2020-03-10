@@ -32,7 +32,7 @@ public class ItemParamServiceImpl implements ItemParamService {
         TbItemParamExample example=new TbItemParamExample();
         TbItemParamExample.Criteria criteria=example.createCriteria();
         criteria.andItemCatIdEqualTo(cid);
-        List<TbItemParam> list = itemParamMapper.selectByExample(example);
+        List<TbItemParam> list = itemParamMapper.selectByExampleWithBLOBs(example);
 //      查询是否有这个类目，有就返回这个类目
         if (list!=null&&list.size()>0){
             return TaotaoResult.ok(list.get(0));
@@ -62,6 +62,7 @@ public class ItemParamServiceImpl implements ItemParamService {
         result.setRows(list);
         PageInfo<TbItemParam> pageInfo=new PageInfo<>(list);
         result.setTotal((int) pageInfo.getTotal());
+        System.out.println((int) pageInfo.getTotal());
         return result;
     }
 }
