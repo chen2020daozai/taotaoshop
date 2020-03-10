@@ -7,9 +7,11 @@ import com.taotao.commom.pojo.TaotaoResult;
 import com.taotao.common.Utils.IDUtils;
 import com.taotao.mapper.TbItemDescMapper;
 import com.taotao.mapper.TbItemMapper;
+import com.taotao.mapper.TbItemParamItemMapper;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemDesc;
 import com.taotao.pojo.TbItemExample;
+import com.taotao.pojo.TbItemParamItem;
 import com.taotao.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private TbItemDescMapper itemDescMapper;
+
+    @Autowired
+    private TbItemParamItemMapper paramItemMapper;
 
     @Override
     public TbItem getItemById(Long itemId) {
@@ -71,19 +76,25 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public TaotaoResult creatItem(TbItem item, String desc) throws Exception {
+    public TaotaoResult creatItem(TbItem item, String desc ,String paramItemData) throws Exception {
 //        item补全(表单中没有的）
         long id = IDUtils.genItemId();
         item.setId(id);
         item.setStatus((byte) 1);
         item.setCreated(new Date());
         item.setUpdated(new Date());
+
 //        插入到数据库
         itemMapper.insert(item);
 
         //添加商品描述信息
         TaotaoResult result = insertItemDesc(id, desc);
         if (result.getStatus()!=200){
+            throw new Exception();
+        }
+
+        TaotaoResult taotaoResult = insertParemItem(id, paramItemData);
+        if (taotaoResult.getStatus()!=200){
             throw new Exception();
         }
         return TaotaoResult.ok();
@@ -98,4 +109,15 @@ public class ItemServiceImpl implements ItemService {
         return TaotaoResult.ok();
     }
 
+
+    public TaotaoResult insertParemItem(long itemId, String paramItemData) {
+        TbItemParamItem itemParamItem=new TbItemParamItem();
+        itemParamItem.setItemId(itemId);
+        itemParamItem.setParamData(paramItemData);
+        itemParamItem.setCreated(new Date());
+        itemParamItem.setUpdated(new Date());
+
+        paramItemMapper.insert(itemParamItem);
+        return TaotaoResult.ok();
+    }
 }

@@ -5,3 +5,12 @@ Controller层接收前段数据
 单表操作可以用逆向生成的代码
 easyUI都是Ajax请求，只有一个html（index.jsp），其他都是<div>
 mapper就是操作数据库的
+
+selectByExampleWithBLOBs包含大文本，就是规格参数模板
+
+Controller层需要联系前端，所以注意字段名称
+
+public TaotaoResult creatItem(TbItem item, String desc, String itemParams) throws Exception {
+    TaotaoResult result = itemService.creatItem(item, desc, itemParams);
+    return result;
+    }
